@@ -1,0 +1,18 @@
+#!/bin/ksh
+
+SRC="../src"
+
+COMMON=`find ../src -name Common.cpp`
+JOIN=`find ../src -name Join.cpp`
+STRUTIL=`find ../src -name StringUtil.cpp`
+LOGGER=`find ../src -name Logger.cpp`
+
+SRC_INCLUDES=`find $SRC -type d | awk '{printf("-I%s ",$0);}'`
+INCLUDE="$SRC_INCLUDES"
+CFLAGS="-std=c++17 -O2"
+
+set -x
+#g++ $CFLAGS $INCLUDE $COMMON $STRUTIL $JOIN $LOGGER loggertest.cpp -luuid -pthread -o logger 
+#g++ $CFLAGS $INCLUDE $COMMON $STRUTIL $JOIN $LOGGER syncmaptest.cpp -luuid -pthread -o syncmap
+#g++ $CFLAGS $INCLUDE $COMMON $STRUTIL $JOIN $LOGGER syncmaptest.cpp -luuid -pthread -o syncmap
+g++ timestamp.cpp -o timestamp
