@@ -167,7 +167,7 @@ buildExe() {
     echo linking demos
     for EXE in $DEMOSRC
     do
-      userEcho $CC $INCLUDES $CCFLAGS -Llib -Iinclude example/$EXE.cpp $LDFLAGS $RPATH $LIBS -l$APILIB -o $BIN/$EXE
+      userEcho $CC $CCFLAGS -I./include example/$EXE.cpp $LDFLAGS -l$APILIB $LIBS -o $BIN/$EXE
     done
   fi
 }
@@ -212,16 +212,16 @@ package() {
 packageHeaders() {
   echo "[Package Headers]"
 
-  mkdir include 
+  mkdir -p include 
 
-  echo "#pragma once" > ${DESTDIR}${PREFIX}/include/$HEADER_NAME
+  echo "#pragma once" > ./include/$HEADER_NAME
   echo  "pragma once" > .headers.dat
 
   find $SRC -name "*.h" | while read FILENAME; do basename $FILENAME; done | awk '{printf("include.*%s\n",$0)}' >> .headers.dat
   
   (
     cat `ls src/common/synchronized/*.h` $(cat $HEADER_ORDER) 
-  ) | egrep -avf .headers.dat >> include/$HEADER_NAME
+  ) | egrep -avf .headers.dat > ./include/$HEADER_NAME
   rm -f .headers.dat
 }
 
@@ -235,7 +235,7 @@ install() {
   mkdir -p   ${DESTDIR}${PREFIX}/include || die
   chmod a+rx ${DESTDIR}${PREFIX}/include || die
 
-  cp include/$HEADER_NAME ${DESTDIR}${PREFIX}/include/$HEADER_NAME
+  cp ./include/$HEADER_NAME ${DESTDIR}${PREFIX}/include/$HEADER_NAME
 
   chmod 0644 ${DESTDIR}${PREFIX}/include/$HEADER_NAME
 
