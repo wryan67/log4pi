@@ -22,17 +22,20 @@ int main(int argc, char **argv) {
     }
 
    
-    printf("default global level: %s\n", logger.globalLevel().c_str());
+    logger.info("default global level: %s", logger.globalLevel().c_str());
   
     LogLevel level = logger.str2level(argv[1]);
     
-    printf("setting global level to %d (%s)\n", level, Logger::toString(level).c_str());
+    logger.info("setting global level to %d (%s)", level, Logger::toString(level).c_str());
 
     logger.setGlobalLevel(level);
 
-    printf("global level: %s\n", logger.globalLevel().c_str());
+    logger.info("global level: %s", logger.globalLevel().c_str());
 
-    printf("----thread test----\n" ); fflush(stdout);
+    logger.warn("----warn test----" ); fflush(stdout);
+    logger.error("----error test----" ); fflush(stdout);
+    logger.debug("----debug test----" ); fflush(stdout);
+    logger.info("----thread test----" ); fflush(stdout);
 
     try {
         int threadCount=10;
