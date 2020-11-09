@@ -5,9 +5,6 @@
 
 #include <log4pi.h>
 
-//#include "Logger.h"
-//#include "SynchronizedMap.h"
-
 using namespace std;
 using namespace common::utility;
 using namespace common::synchronized;

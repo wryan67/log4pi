@@ -35,6 +35,7 @@ SRC=$BASE/src
 BIN=$BASE/bin
 LIB=$BASE/lib
 OBJ=$BASE/obj
+INC=$BASE/include
 
 VERSION=`cat $BASE/version 2>/dev/null`
 [ "$VERSION" = "" ] && VERSION=0.1
@@ -84,7 +85,7 @@ clean() {
   if [ "$1" = "objects" ];then
     rm -rf $OBJ || die
   else 
-    rm -rf $BIN $OBJ $LIB || die
+    rm -rf $BIN $OBJ $LIB $INC || die
   fi
 }
 
@@ -166,7 +167,7 @@ buildExe() {
     echo linking demos
     for EXE in $DEMOSRC
     do
-      userEcho $CC $INCLUDES $CCFLAGS $LDFLAGS $RPATH example/$EXE.cpp $LIBS -l$APILIB -o $BIN/$EXE
+      userEcho $CC $INCLUDES $CCFLAGS -Llib -Iinclude example/$EXE.cpp $LDFLAGS $RPATH $LIBS -l$APILIB -o $BIN/$EXE
     done
   fi
 }
@@ -175,6 +176,7 @@ buildExe() {
 #:#  package        #:#
 #:###################:#
 package() {
+  packageHeaders
   mkdir -p $LIB 
 
   if [ $STATICONLY = 0 ];then
@@ -205,25 +207,37 @@ package() {
 }
 
 #:###################:#
+#:#  headers        #:#
+#:###################:#
+packageHeaders() {
+  echo "[Package Headers]"
+
+  mkdir include 
+
+  echo "#pragma once" > ${DESTDIR}${PREFIX}/include/$HEADER_NAME
+  echo  "pragma once" > .headers.dat
+
+  find $SRC -name "*.h" | while read FILENAME; do basename $FILENAME; done | awk '{printf("include.*%s\n",$0)}' >> .headers.dat
+  
+  (
+    cat `ls src/common/synchronized/*.h` $(cat $HEADER_ORDER) 
+  ) | egrep -avf .headers.dat >> include/$HEADER_NAME
+  rm -f .headers.dat
+}
+
+#:###################:#
 #:#  install        #:#
 #:###################:#
 install() {
+  packageHeaders
   echo "[Install Headers]"
 
   mkdir -p   ${DESTDIR}${PREFIX}/include || die
   chmod a+rx ${DESTDIR}${PREFIX}/include || die
 
-  echo "#pragma once" > ${DESTDIR}${PREFIX}/include/$HEADER_NAME
-  echo  "pragma once" > $TMP.headers.dat
-
-  find $SRC -name "*.h" | while read FILENAME; do basename $FILENAME; done | awk '{printf("include.*%s\n",$0)}' >> $TMP.headers.dat
-  
-  (
-    cat `ls src/common/synchronized/*.h` $(cat $HEADER_ORDER) 
-  ) | egrep -avf $TMP.headers.dat >> ${DESTDIR}${PREFIX}/include/$HEADER_NAME
+  cp include/$HEADER_NAME ${DESTDIR}${PREFIX}/include/$HEADER_NAME
 
   chmod 0644 ${DESTDIR}${PREFIX}/include/$HEADER_NAME
-  rm -f $TMP.headers.dat
 
   echo "[Install Libraries]"
   mkdir -p   ${DESTDIR}${PREFIX}/lib || die

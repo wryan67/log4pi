@@ -6,9 +6,6 @@
 
 #include <log4pi.h>
 
-//#include "Common.h"
-//#include "Logger.h"
-
 using namespace common;
 using namespace common::utility;
 using namespace common::synchronized;
