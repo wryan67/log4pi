@@ -8,9 +8,9 @@ Different modes can be set such that one can turn debugging information on or of
     ALL,TAG,TRACE,DEBUG,INFO,WARN,ERROR,FATAL
 
 ## Dependencies
-Please install the uuid library prior to compiling the source:
+Please install the uuid development library prior to compiling the source:
 
-    $ sudo apt install uuid
+    $ sudo apt install uuid-dev
 
 ## Download
 
