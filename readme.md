@@ -1,7 +1,7 @@
 log4pi
 ------
 
-This software library provides a convient and standerdized way of logging information that your program is generating. Log entries are time stamped with the current time, including milliseconds. The log4pi library is thread safe, and provides a way to track log entries such that one can easily separate log entries for different threads for analysis.  All log entries are written to stderr so that stdout can be used for normal file i/o.  
+This software library provides a convient and standardized way of logging information that your program is generating. Log entries are time stamped with the current time, including milliseconds. The log4pi library is thread safe, and provides a way to track log entries such that one can easily separate log entries for different threads for analysis.  All log entries are written to stderr so that stdout can be used for normal file i/o.  
 
 Different modes can be set such that one can turn debugging information on or off depending upon the current need or environment.  Logging levels are as follows:
 
