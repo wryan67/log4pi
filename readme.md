@@ -1,11 +1,29 @@
 log4pi
 ------
 
-This software library provides a convient and standerdized way of logging information that your program is generating. Log entries are time stamped with the current time, including milliseconds. The log4pi library is thread safe, and provides a way to track log entries such that one can easily separate log entries for different threads for analysis.  All log entries are written to stderr so that stdout can be used for normal file i/o.  Having the log written to a custom filename is on the to do list.
+This software library provides a convient and standerdized way of logging information that your program is generating. Log entries are time stamped with the current time, including milliseconds. The log4pi library is thread safe, and provides a way to track log entries such that one can easily separate log entries for different threads for analysis.  All log entries are written to stderr so that stdout can be used for normal file i/o.  
 
 Different modes can be set such that one can turn debugging information on or off depending upon the current need or environment.  Logging levels are as follows:
 
     ALL,TAG,TRACE,DEBUG,INFO,WARN,ERROR,FATAL
+
+## TO-DO
+
+* Write logs to disk instead of stderr
+  * Custom mask for file naming convention
+  * Roll logs daily or hourly
+* Common-Timing: create standard classes for capturing elapsed times for functions. 
+  * Hold logging in memory until transacton completes
+  * Manual logging
+  * Create start/stop triggers to enable aggregate computations for:
+    * average elapsed time
+    * standard deviation
+    * 95th percentile
+* Transactions Per Second (TPS) monitoring.  Compute:
+  * Exact TPS
+  * TPS: 20 per moving average
+  * Average elapsed time per second
+  
 
 ## Dependencies
 Please install the uuid development library prior to compiling the source:
