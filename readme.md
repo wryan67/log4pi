@@ -3,6 +3,19 @@ log4pi
 
 This software library provides a convient and standardized way of logging information that your program is generating. Log entries are time stamped with the current time, including milliseconds. Log entries use the printf() formatting.  The log4pi library is thread safe, and provides a way to track log entries such that one can easily separate log entries for different threads for analysis.  All log entries are written to stderr so that stdout can be used for normal file i/o.  
 
+Code Snippet with sample output:
+
+    int id=72;
+    char *state="running";
+    
+    logger.info("id=%04d state=%s", id, state);
+    
+sample output:
+
+    [] 2020-11-02 14:28:32.027 INFO  id=0072 state=running (main)(3069499856)
+    
+    
+
 Different modes can be set such that one can turn debugging information on or off depending upon the current need or environment.  Logging levels are as follows:
 
     ALL,TAG,TRACE,DEBUG,INFO,WARN,ERROR,FATAL
