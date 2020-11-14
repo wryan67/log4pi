@@ -16,7 +16,7 @@ sample output:
     
     
 
-Different modes, sometimes reffered to as logging level, can be set such that one can turn debugging information on or off depending upon the current need or environment.  Logging levels are as follows:
+Different modes, sometimes referred to as logging level, can be set such that one can turn debugging information on or off depending upon the current need or environment.  Logging levels are as follows:
 
     ALL,TAG,TRACE,DEBUG,INFO,WARN,ERROR,FATAL
 
