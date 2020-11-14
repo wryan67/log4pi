@@ -38,7 +38,8 @@ Please install the uuid development library prior to compiling the source:
 ## Install
 To compile this library, navigate into the src folder and use the make utility to compile and install the library.  Note you can also create the demo applicaions here a well.  "make install" uses sudo to install the library in the /usr/local system area.
 
-    $ cd [your projects folder]/log4pi
+    $ cd [your projects folder]
+    $ cd log4pi
     $ make 
     $ make install
     $ make demos
