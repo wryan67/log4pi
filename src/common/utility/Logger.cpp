@@ -222,18 +222,18 @@ namespace common { namespace utility {
     }
 
     void Logger::logStream(string name, thread::id threadId, FILE *pipe, LogLevel level, const char *format, va_list *valist) {
-        char   timestamp[24];
-        struct timeval currentTime;
+        if (level >= Logger::globalLogLevel) {
+            char   timestamp[24];
+            struct timeval currentTime;
 
-        gettimeofday(&currentTime, nullptr);
-        strftime(timestamp, sizeof(timestamp), "%F %T", localtime(&currentTime.tv_sec));
+            gettimeofday(&currentTime, nullptr);
+            strftime(timestamp, sizeof(timestamp), "%F %T", localtime(&currentTime.tv_sec));
 
-        stringstream threadSS;
-        threadSS << threadId;
-        string tid = threadSS.str();
-        
-        string txid = Logger::getTransactionId(threadId);
-        if (Logger::globalLogLevel <= level) {
+            stringstream threadSS;
+            threadSS << threadId;
+            string tid = threadSS.str();
+            
+            string txid = Logger::getTransactionId(threadId);
             fprintf(pipe, "[%s] %s.%03ld %-5s ", 
                         txid.c_str(), 
                         timestamp, currentTime.tv_usec/1000,
@@ -250,12 +250,19 @@ namespace common { namespace utility {
     }
 
     void Logger::punt(string name, thread::id threadId, char *sysError, LogLevel level, const char *format, va_list *valist) {
+        if (level < Logger::globalLogLevel ) {
+            return;
+        }
         Logger::logStream(name, threadId, stderr, level, format, valist);
         fprintf(stderr, "ERROR: %s", sysError); 
         fflush(stderr);
     }
 
     void Logger::log(LogLevel level, const char *format, va_list *valist) {
+        if (level < Logger::globalLogLevel ) {
+            return;
+        }
+
         thread::id threadId = this_thread::get_id();
 
         int pipefds[2];
