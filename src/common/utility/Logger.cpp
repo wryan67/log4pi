@@ -231,9 +231,9 @@ namespace common { namespace utility {
 
             stringstream threadSS;
             threadSS << threadId;
-            string tid = threadSS.str();
-            
+            string tid  = threadSS.str();            
             string txid = Logger::getTransactionId(threadId);
+
             fprintf(pipe, "[%s] %s.%03ld %-5s ", 
                         txid.c_str(), 
                         timestamp, currentTime.tv_usec/1000,
@@ -302,6 +302,7 @@ namespace common { namespace utility {
             fflush(stderr);
         }
         free(out);
+        bgTask.join();
     }
 
     int Logger::read2vector(vector<logLine*> &myVector, FILE *inputFile) {
