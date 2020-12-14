@@ -17,8 +17,6 @@ using namespace common::synchronized;
 
 void txop(int id);
 
-
-
 int main(int argc, char **argv) {
     Logger logger("main");
 

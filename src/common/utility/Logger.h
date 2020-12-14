@@ -98,9 +98,6 @@ namespace common { namespace utility {
             static LogLevel globalLogLevel;
             static SynchronizedMap<thread::id, string> transactionId;
 
-
-
-
             string name;
             void        log(LogLevel level, const char *format, va_list *valist);
             static void punt(string name, thread::id threadId, char *sysError, LogLevel level, const char *format, va_list *valist);
