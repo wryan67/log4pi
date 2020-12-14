@@ -26,6 +26,9 @@ namespace common { namespace utility {
    
     void bomb(int exitCode, const char *format, ...);
 
+    void initRandom();
+    int  randomInclusive(int low, int high);
+
     string getUUID();
 
 }}

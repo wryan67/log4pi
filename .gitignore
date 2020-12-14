@@ -2,3 +2,5 @@ bin/**
 lib/**
 obj/**
 include/**
+.vscode/**
+logger.out.*

@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.tcc": "cpp",
+			"cmath": "cpp",
+			"exception": "cpp",
+			"fstream": "cpp",
+			"istream": "cpp",
+			"ostream": "cpp"
+		}
+	}
+}

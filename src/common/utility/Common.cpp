@@ -16,6 +16,30 @@ namespace common { namespace utility {
             (uint64_t)(currentTime.tv_usec) / 1000;
     }
 
+    int randomInclusive(int low, int high) {
+        double r = (double)rand() / RAND_MAX;
+
+        return low + (r * (1 + high - low));
+    }
+
+    void initRandom() {
+        int seed;
+        FILE *fp;
+        fp = fopen("/dev/urandom", "r");
+        if (!fp) {
+            fprintf(stderr, "error opening /dev/urandom; caused by: %s", strerror(errno));
+            return;
+        }
+        size_t cr=fread(&seed, sizeof(seed), 1, fp);
+        if (cr!=1) {
+            fprintf(stderr, "error reading /dev/urandom");
+            return;
+        }
+        fclose(fp);
+        srand(seed);
+    }
+
+
     void bomb(int exitCode, const char *format, ...) {
         va_list valist;
         va_start(valist, format);

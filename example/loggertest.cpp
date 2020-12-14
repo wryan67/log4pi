@@ -4,7 +4,12 @@
 #include <vector>
 #include <thread>
 
+// use angle brackets for normal use
 #include <log4pi.h>
+
+// use these for log4pi development only
+// #include "Logger.h"
+// #include "Common.h"
 
 using namespace common;
 using namespace common::utility;
@@ -12,19 +17,22 @@ using namespace common::synchronized;
 
 void txop(int id);
 
+
+
 int main(int argc, char **argv) {
     Logger logger("main");
-  
+
+    initRandom();
+
     if (argc<2) {
-        logger.error("usage: test Level [threads]");
-        logger.info("levels: %s", join(&Logger::logLevelNames,",").c_str());
+        logger.error("usage: LogLevel [threads]");
+        logger.info("Log levels: %s", join(&Logger::logLevelNames,",").c_str());
         return EXIT_FAILURE;
     }
 
-   
     logger.info("default global level: %s", logger.globalLevel().c_str());
   
-    LogLevel level = logger.str2level(argv[1]);
+    LogLevel level = Logger::str2level(argv[1]);
     
     logger.info("setting global level to %d (%s)", level, Logger::toString(level).c_str());
 
@@ -37,6 +45,11 @@ int main(int argc, char **argv) {
     logger.debug("----debug test----" ); fflush(stdout);
     logger.info("----thread test----" ); fflush(stdout);
 
+    logger.info("%s","setting rolling log file masq: logger.out.%Y-%m-%d-%H-%M-%S");
+    fflush(stderr);
+
+    Logger::useRollingFile("logger.out.%Y-%m-%d-%H-%M-%S");
+
     try {
         int threadCount=10;
         if (argc>2) {
@@ -46,6 +59,7 @@ int main(int argc, char **argv) {
         for (int i=0;i<threadCount;++i) {
             thread *bgThread = new thread(txop,i);
             threads.push_back(bgThread);
+            if (i%(threadCount/10)==0) usleep(randomInclusive(1000,1000000));
         }
 
         for (auto bgThread: threads) {
@@ -58,8 +72,10 @@ int main(int argc, char **argv) {
     }
 }
 
-void txop(int id) {
+void txop(int id) {   
     Logger logger("txop");
+
+    usleep(randomInclusive(1000,1000000));
 
     string txid = getUUID();
 
@@ -69,4 +85,3 @@ void txop(int id) {
 
     logger.clearTransactionId();
 }
-
