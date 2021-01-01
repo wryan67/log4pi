@@ -18,14 +18,13 @@ Logger logger{"main"};
 int main(int argc, char **argv) {
 
     int64_t start=currentTimeMillis();
+    logger.info("start:   %13lld", start);
 
     usleep(250*1000);
 
     int64_t end=currentTimeMillis();
+    logger.info("end:     %13lld", end);
 
     long elapsed = end-start;
-
-    logger.info("start:   %13lld", start);
-    logger.info("end:     %13lld", end);
     logger.info("elapsed: %13ld",  elapsed);
 }
