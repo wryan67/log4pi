@@ -221,7 +221,7 @@ packageHeaders() {
   
   (
     cat `ls src/common/synchronized/*.h` $(cat $HEADER_ORDER) 
-  ) | egrep -avf .headers.dat > ./include/$HEADER_NAME
+  ) | egrep -avf .headers.dat >> ./include/$HEADER_NAME
   rm -f .headers.dat
 }
 
