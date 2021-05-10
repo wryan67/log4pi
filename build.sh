@@ -336,5 +336,5 @@ done
 [ $INSTALL = 1 ]     && install
 [ $REMOVE = 1 ]      && remove
 
-chown -R `logname`:`ls -lad . 2>/dev/null | awk '{print $4}'` .
+chown -R `whoami`:`ls -lad . 2>/dev/null | awk '{print $4}'` .
 exit 0
