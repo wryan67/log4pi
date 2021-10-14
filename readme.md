@@ -57,7 +57,7 @@ To compile this library, navigate into the src folder and use the make utility t
     $ cd log4pi
     $ make 
     $ make install
-    $ make demos
+    $ sudo make demos
 
 ## Compiling
 Complie your applications using these command line arguments: -pthread -llog4pi
