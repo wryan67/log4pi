@@ -10,10 +10,6 @@
 
 using namespace std;
 
-#define string2upper(str)  for (auto & c: str) c = toupper(c);
-#define str2lower(str)     for (int i=0; i<strlen(str); ++i) str[i]=tolower(c);
-#define str2upper(str)     for (int i=0; i<strlen(str); ++i) str[i]=toupper(c);
-
 
 namespace common { namespace utility {
 
