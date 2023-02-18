@@ -14,6 +14,7 @@
 #include "Common.h"
 
 #define classFQName "ccsi::common::utility::Logger"
+#define string2upper(str)  for (auto & c: str) c = toupper(c);
 
 namespace common { namespace utility {
 
